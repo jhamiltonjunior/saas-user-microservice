@@ -20,9 +20,15 @@ export interface IAuthUserRepository {
 
 export interface IUserRepository {
   add: (user: IUserData) => Promise<void>
-  update: (user: IUserData) => Promise<void>
+  update: (user: IUserData, tokenId: string) => Promise<void>
   generateDefaultPermission: (userId: string, permissionId: string) => Promise<void>
-  exists: (email: string) => Promise<boolean>
   findUserById: (id: string) => Promise<AuthorData>
   getPermission: (id: string) => Promise<string>
+
+  exists: (email: string) => Promise<boolean>
+
+  // methods more used for authenticate
+  findUserByEmail: (email: string) => Promise<IUserAuthData>
+  comparePassword: (password: string, hash: string) => Promise<boolean>
+  authenticateUser: (id: string | undefined, token?: string) => Promise<string>
 }
