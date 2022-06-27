@@ -1,5 +1,5 @@
 import { IUserData, IUserAuthData } from '../../../../domain/entities/users/interfaces/userData'
-import { UserResponse } from '../registerUserResponse'
+import { UserResponse } from '../userResponse'
 import { AuthUserResponse } from '../authUserResponse'
 
 export interface UserInterface {

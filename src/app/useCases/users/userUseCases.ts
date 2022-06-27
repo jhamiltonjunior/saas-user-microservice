@@ -4,7 +4,7 @@ import { Either, left, right } from '../../../shared/either'
 
 import { IUserRepository } from '../../repositories/userRepository'
 import { IRegisterUser } from './interfaces/registerUser'
-import { UserResponse } from './registerUserResponse'
+import { UserResponse } from './userResponse'
 import { InvalidEmailError } from '../../../domain/entities/users/errors/invalidEmail'
 import { InvalidPasswordError } from '../../../domain/entities/users/errors/invalidPassword'
 import { User } from '../../../domain/entities/users/user'
