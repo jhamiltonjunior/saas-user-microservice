@@ -1,5 +1,5 @@
 import { RegisterUser } from '../../../../app/useCases/users/registerUser'
-import { RegisterUserResponse } from '../../../../app/useCases/users/registerUserResponse'
+import { UserResponse } from '../../../../app/useCases/users/registerUserResponse'
 import { MissingParamError } from '../errors/missingParamError'
 import { badRequest, created, serverError } from '../helpers/httpHelper'
 import { IHttpRequest, IHttpResponse } from '../ports/http'
@@ -25,7 +25,7 @@ export class RegisterUserController {
         return badRequest(new MissingParamError(field))
       }
 
-      const registerUserResponse: RegisterUserResponse =
+      const registerUserResponse: UserResponse =
         await this.registerUser.registerUserOnDatabase(userData)
 
       if (registerUserResponse.isLeft()) {

@@ -4,7 +4,7 @@ import { Either, left, right } from '../../../shared/either'
 
 import { IUserRepository } from '../../repositories/userRepository'
 import { IRegisterUser } from './interfaces/registerUser'
-import { RegisterUserResponse } from './registerUserResponse'
+import { UserResponse } from './registerUserResponse'
 import { InvalidEmailError } from '../../../domain/entities/users/errors/invalidEmail'
 import { InvalidPasswordError } from '../../../domain/entities/users/errors/invalidPassword'
 import { User } from '../../../domain/entities/users/user'
@@ -16,7 +16,7 @@ export class RegisterUser implements IRegisterUser {
     this.userRepository = registerRepo
   }
 
-  async registerUserOnDatabase (userData: IUserData): Promise<RegisterUserResponse> {
+  async registerUserOnDatabase (userData: IUserData): Promise<UserResponse> {
     const userOrError: Either<
     InvalidNameError | InvalidEmailError | InvalidPasswordError,
     User> = User.create(userData)

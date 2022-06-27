@@ -1,6 +1,6 @@
 import { IUserData } from '../../../../domain/entities/users/interfaces/userData'
-import { RegisterUserResponse } from '../registerUserResponse'
+import { UserResponse } from '../registerUserResponse'
 
 export interface IRegisterUser {
-  registerUserOnDatabase: (user: IUserData) => Promise<RegisterUserResponse>
+  registerUserOnDatabase: (user: IUserData) => Promise<UserResponse>
 }
