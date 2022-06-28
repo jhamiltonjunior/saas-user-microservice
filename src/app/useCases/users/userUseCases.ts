@@ -69,4 +69,6 @@ export class UserUseCases implements IRegisterUser {
 
     return right(authData)
   }
+
+  // async showUniqueUser (id: string): Promise<IUserData> {}
 }

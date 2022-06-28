@@ -9,15 +9,18 @@ type AuthorData = { user_id: string, name: string }
 export class PostgresUserRepository implements IUserRepository {
   postgresHelper: PostgresHelper
   hash: (password: string) => Promise<string>
+  public compare: (password: string, hash: string) => Promise<boolean>
   public generateToken: (id: string | undefined) => string
 
   constructor (
     connectionObject: object,
     hash: (password: string) => Promise<string>,
+    compare: (password: string, hash: string) => Promise<boolean>,
     generateToken: (id: string | undefined) => string
   ) {
     this.postgresHelper = new PostgresHelper(connectionObject)
     this.generateToken = generateToken
+    this.compare = compare
     this.hash = hash
   }
 
@@ -124,5 +127,14 @@ export class PostgresUserRepository implements IUserRepository {
 
     // I am return all permissions of one user
     return permissionsName.trim()
+  }
+
+  async comparePassword (password: string, hash: string): Promise<boolean> {
+    const result = await this.compare(password, hash)
+    if (result) {
+      return true
+    }
+
+    return false
   }
 }
