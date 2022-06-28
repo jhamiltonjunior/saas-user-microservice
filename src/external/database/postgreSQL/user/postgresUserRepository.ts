@@ -137,4 +137,25 @@ export class PostgresUserRepository implements IUserRepository {
 
     return false
   }
+
+  /**
+   * This update can update the datas of user
+   * But only user who it is authenticate
+   */
+  async update (user: IUserData, tokenId: string): Promise<void> {
+    const hash = await this.hash(user.password)
+
+    await this.postgresHelper.writer(
+      `
+      UPDATE users
+      SET
+        name = $1,
+        email = $2,
+        password = $3
+      
+      WHERE
+        user_id = $4`,
+      [user.name, user.email, hash, tokenId]
+    )
+  }
 }
