@@ -70,5 +70,13 @@ export class UserUseCases implements IRegisterUser {
     return right(authData)
   }
 
-  // async showUniqueUser (id: string): Promise<IUserData> {}
+  /**
+   * This method show a unique user
+   * but not exist validation for verify uuid of params of request
+   */
+  async showUniqueUser (id: string): Promise<IUserData> {
+    const user = await this.userRepository?.findUserById(id)
+
+    return user
+  }
 }

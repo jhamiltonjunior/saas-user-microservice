@@ -2,7 +2,7 @@
 import { IUserAuthData, IUserData } from '../../domain/entities/users/interfaces/userData'
 
 // eslint-disable-next-line camelcase
-type AuthorData = { user_id: string, name: string }
+// type AuthorData = { user_id: string, name: string }
 
 export interface IRegisterUserRepository {
   findAllUsers: () => Promise<IUserData[]>
@@ -22,7 +22,7 @@ export interface IUserRepository {
   add: (user: IUserData) => Promise<void>
   update: (user: IUserData, tokenId: string) => Promise<void>
   generateDefaultPermission: (userId: string, permissionId: string) => Promise<void>
-  findUserById: (id: string) => Promise<AuthorData>
+  findUserById: (id: string) => Promise<IUserData>
   getPermission: (id: string) => Promise<string>
 
   exists: (email: string) => Promise<boolean>

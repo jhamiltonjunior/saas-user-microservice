@@ -4,7 +4,7 @@ import { PostgresHelper } from '../helpers/postgresHelper'
 import { v4 as uuidv4 } from 'uuid'
 
 // eslint-disable-next-line camelcase
-type AuthorData = { user_id: string, name: string }
+// type AuthorData = { user_id: string, name: string }
 
 export class PostgresUserRepository implements IUserRepository {
   postgresHelper: PostgresHelper
@@ -24,7 +24,7 @@ export class PostgresUserRepository implements IUserRepository {
     this.hash = hash
   }
 
-  async findUserById (id: string): Promise<AuthorData> {
+  async findUserById (id: string): Promise<IUserData> {
     const result = await this.postgresHelper.query('SELECT * FROM users WHERE user_id = $1', [id])
 
     return result.rows[0]
