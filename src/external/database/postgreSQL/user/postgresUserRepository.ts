@@ -20,7 +20,7 @@ export class PostgresUserRepository implements IUserRepository {
   ) {
     this.postgresHelper = new PostgresHelper(connectionObject)
     this.generateToken = generateToken
-    this.compare = compare
+    this.compare = compare || undefined
     this.hash = hash
   }
 
