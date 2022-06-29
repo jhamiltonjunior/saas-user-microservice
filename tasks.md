@@ -35,7 +35,7 @@ não venha me atrapalhar
 - [ ] as categorias são unicas no banco de dados
 
 - [x] criar um usuário
-- [ ] ler um usuário pelo id ou user_name
+- [x] ler um usuário pelo id ou user_name (pelo id)
 - [ ] atualizar usuário
 - [ ] Deletar usuário
 
