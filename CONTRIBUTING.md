@@ -20,7 +20,7 @@ Guide for contribute to project.
 
 # What not to do
 
-
+Not make empty commit
 
 
 
