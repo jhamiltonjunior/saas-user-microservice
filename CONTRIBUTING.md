@@ -18,9 +18,11 @@ Guide for contribute to project.
 
 - Make _rebase_ of **master** in your _branch_ daily.
 
-# What not to do
+# What **NOT** to do
 
-Not make empty commit
+- Develop direct in **master** branch.
+- _Merge_ of _branchs_ at the **master** before who the code be reviewed.
+- - _Merge_ of _branchs_ at the **master** before who
 
 
 
