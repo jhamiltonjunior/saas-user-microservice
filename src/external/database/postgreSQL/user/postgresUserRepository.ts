@@ -15,8 +15,8 @@ export class PostgresUserRepository implements IUserRepository {
   constructor (
     connectionObject: object,
     hash: (password: string) => Promise<string>,
+    generateToken: (id: string | undefined) => string,
     compare: (password: string, hash: string) => Promise<boolean>,
-    generateToken: (id: string | undefined) => string
   ) {
     this.postgresHelper = new PostgresHelper(connectionObject)
     this.generateToken = generateToken

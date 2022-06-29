@@ -1,13 +1,13 @@
-import { RegisterUser } from '../../../../app/useCases/users/registerUser'
+import { UserUseCases } from '@src/app/useCases/users/userUseCases'
 import { UserResponse } from '../../../../app/useCases/users/userResponse'
 import { MissingParamError } from '../errors/missingParamError'
 import { badRequest, created, serverError } from '../helpers/httpHelper'
 import { IHttpRequest, IHttpResponse } from '../ports/http'
 
 export class RegisterUserController {
-  private readonly registerUser: RegisterUser
+  private readonly registerUser: UserUseCases
 
-  constructor (registerUser: RegisterUser) {
+  constructor (registerUser: UserUseCases) {
     this.registerUser = registerUser
   }
 
