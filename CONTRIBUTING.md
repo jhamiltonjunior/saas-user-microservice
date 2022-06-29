@@ -14,9 +14,14 @@ Guide for contribute to project.
 - Make _rebase_ with the **master** **before** create _pull requests_.
 - Mark all your commits who they are incompletes (_Work In Progress_)
 
-## Optional
+### Optional
 
 - Make _rebase_ of **master** in your _branch_ daily.
+
+# What not to do
+
+
+
 
 
 # Contribuindo
