@@ -13,6 +13,7 @@ cada pasta dentro desse repository é equivalente a um service
 or
 
 - [ ] Docker
+- [ ] PostgreSQL
 
 # To start the project on your machine
 
