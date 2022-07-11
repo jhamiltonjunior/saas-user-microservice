@@ -27,6 +27,7 @@ export class UserUseCases implements IRegisterUser {
     }
 
     const user: User = userOrError.value
+    console.log('usecase', user)
     const exists = this.userRepository.exists(userData.email)
 
     if (!(await exists).valueOf()) {

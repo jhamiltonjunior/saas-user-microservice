@@ -7,6 +7,7 @@ import { makeShowUniqueUserController } from '../factories/showUnique'
 export default (router: Router): void => {
   router.get('/user', adpterRoute(makeAuthUserController()))
   router.get('/user/:id', adpterRoute(makeShowUniqueUserController()))
+
   router.post('/user', adpterRoute(makeRegisterUserController()))
 
   router.get('/user/test', (req: Request, res: Response) => {

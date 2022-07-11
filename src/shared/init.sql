@@ -1,3 +1,6 @@
+-- sudo docker exec -it postgres-server psql -U postgres
+-- sudo docker exec -it [ container-name ] psql -U [ postgres-user ]
+
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
