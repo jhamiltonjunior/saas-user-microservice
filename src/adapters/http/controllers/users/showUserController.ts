@@ -15,7 +15,8 @@ export class ShowUserController {
     const id = httpRequest.params.id
     const userData = {
       name: '',
-      email: ''
+      email: '',
+      password: ''
     }
 
     try {
