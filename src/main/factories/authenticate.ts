@@ -1,14 +1,14 @@
 import { generateToken } from '../../external/jwt/jwt'
 import { AuthUserController } from '../../adapters/http/controllers/users/authUserController'
-import { AuthUser } from '../../app/useCases/users/authUser'
-import { comparePassword } from '../../external/bcrypt/bcrypt'
-import { AuthUserRepository } from '../../external/database/postgreSQL/authUserRepository'
+import { comparePassword, generateHash } from '../../external/bcrypt/bcrypt'
 import { connectionObject } from './utils/connectionObject'
+import { UserUseCases } from '@src/app/useCases/users/userUseCases'
+import { PostgresUserRepository } from 'src/external/database/postgreSQL/user/postgresUserRepository'
 
 export const makeAuthUserController = (): AuthUserController => {
-  const authUserRepository = new AuthUserRepository(connectionObject, comparePassword, generateToken)
-  const authUser = new AuthUser(authUserRepository)
+  const authUserRepository = new PostgresUserRepository(connectionObject, generateHash, generateToken, comparePassword)
+  const authUser = new UserUseCases(authUserRepository)
   const authUserController = new AuthUserController(authUser)
-  // console.log(authUserController)
+  console.log(authUser)
   return authUserController
 }

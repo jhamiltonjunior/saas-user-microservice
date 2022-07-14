@@ -1,14 +1,14 @@
 import { AuthUserResponse } from '../../../../app/useCases/users/authUserResponse'
-import { AuthUser } from '../../../../app/useCases/users/authUser'
 import { MissingParamError } from '../errors/missingParamError'
 import { badRequest, ok, serverError } from '../helpers/httpHelper'
 import { IHttpRequest, IHttpResponse } from '../ports/http'
+import { UserUseCases } from '@src/app/useCases/users/userUseCases'
 
 export class AuthUserController {
-  private readonly authUser: AuthUser
+  private readonly authUser: UserUseCases
   // public readonly hash: string
 
-  constructor (authUser: AuthUser) {
+  constructor (authUser: UserUseCases) {
     this.authUser = authUser
     // this.hash = hash
   }
