@@ -1,5 +1,42 @@
--- sudo docker exec -it postgres-server psql -U postgres
+
+sudo docker run -d --name postgres-server -p 5432:5432 -e "POSTGRES_PASSWORD=0000" postgres
+
 -- sudo docker exec -it [ container-name ] psql -U [ postgres-user ]
+
+-- sudo docker exec -it postgres-server psql -U postgres
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 DROP TABLE IF EXISTS users;
 

@@ -26,4 +26,19 @@ cd <DIRECTORY_NAME>
 
 # Initial application
 
+## run database
+
+A exemple of main commands is:
+
+```
+docker pull postgres
+docker run -d --name [YOUR_CONTAINER_NAME] -p 5432:5432 -e "POSTGRES_PASSWORD=[YOUR_PASSWORD]" [IMAGE_NAME]
+docker exec -it [ container-name ] psql -U [ postgres-user ]
+```
+
+docker run -d --name postgres-server -p 5432:5432 -e "POSTGRES_PASSWORD=0000" postgres
+
+
+docker exec -it postgres-server psql -U postgres
+
 run `docker-compose up` in your terminal
