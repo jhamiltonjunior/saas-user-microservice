@@ -36,9 +36,13 @@ docker run -d --name [YOUR_CONTAINER_NAME] -p 5432:5432 -e "POSTGRES_PASSWORD=[Y
 docker exec -it [ container-name ] psql -U [ postgres-user ]
 ```
 
+## How to I use
+```
+docker pull postgres
 docker run -d --name postgres-server -p 5432:5432 -e "POSTGRES_PASSWORD=0000" postgres
-
+docker exec -it postgres-server psql -U postgres
+```
 
 docker exec -it postgres-server psql -U postgres
 
-run `docker-compose up` in your terminal
+<!-- run `docker-compose up` in your terminal -->
