@@ -1,6 +1,9 @@
 # Divisão
 
-cada pasta dentro desse repository é equivalente a um service
+This repository is partial of a microservice.
+
+View also : [Article service](https://github.com/jhamiltonjunior/blog-articles) and
+[Commentary service](https://github.com/jhamiltonjunior/blog-commentaries)
 
 # Preparing the environment
 
@@ -13,7 +16,6 @@ cada pasta dentro desse repository é equivalente a um service
 or
 
 - [ ] Docker
-- [ ] PostgreSQL
 
 # To start the project on your machine
 
@@ -47,7 +49,5 @@ In your file .env you need insert IP of your container in ```DB_HOST```, for thi
 ```
 sudo docker inspect --format '{{ .NetworkSettings.IPAddress }}' [CONTAINER_ID]
 ```
-
-docker exec -it postgres-server psql -U postgres
 
 <!-- run `docker-compose up` in your terminal -->
