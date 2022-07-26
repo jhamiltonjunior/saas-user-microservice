@@ -27,6 +27,8 @@ export interface IUserRepository {
 
   exists: (email: string) => Promise<boolean>
 
+  deleteById: (url: string) => Promise<void>
+
   // methods more used for authenticate
   findUserByEmail: (email: string) => Promise<IUserAuthData>
   comparePassword: (password: string, hash: string) => Promise<boolean>

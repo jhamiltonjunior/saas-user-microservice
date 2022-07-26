@@ -3,14 +3,14 @@ import { IUserAuthData, IUserData } from '../../../domain/entities/users/interfa
 import { Either, left, right } from '../../../shared/either'
 
 import { IUserRepository } from '../../repositories/userRepository'
-import { IRegisterUser } from './interfaces/registerUser'
 import { UserResponse } from './userResponse'
 import { InvalidEmailError } from '../../../domain/entities/users/errors/invalidEmail'
 import { InvalidPasswordError } from '../../../domain/entities/users/errors/invalidPassword'
 import { User } from '../../../domain/entities/users/user'
 import { AuthUserResponse } from './authUserResponse'
+import { UserInterface } from './interfaces/userInterface'
 
-export class UserUseCases implements IRegisterUser {
+export class UserUseCases implements UserInterface {
   private readonly userRepository: IUserRepository
 
   constructor (registerRepo: IUserRepository) {
@@ -78,5 +78,25 @@ export class UserUseCases implements IRegisterUser {
     const user = await this.userRepository?.findUserById(id)
 
     return user
+  }
+
+  async deleteUser (id: string): Promise<void> {
+    const userOrError = user.create(userParams)
+
+    if (userOrError.isLeft()) {
+      return left('new InvaliduserError(userParams)')
+    }
+
+    const user = userOrError.value
+
+    const user = await this.userRepository.findUserById(user.value)
+
+    if (user !== undefined) {
+      this.userRepository.deleteById(user.id)
+
+      return right(true)
+    } else {
+      return left('new InvalidURLNotFound(urlParams)')
+    }
   }
 }
