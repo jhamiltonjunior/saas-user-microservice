@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable no-multiple-empty-lines */
+/* eslint-disable no-trailing-spaces */
+
 import http, { IncomingMessage } from 'node:http'
+import url from 'node:url'
 
 // import { IHttpRequest } from '@src/adapters/http/controllers/ports/http'
 // import { AuthUserController } from '@src/adapters/http/controllers/users/authUserController'
@@ -7,19 +12,28 @@ import http, { IncomingMessage } from 'node:http'
 
 http.createServer(async (request, response) => {
   // set the request route
-  if (request.url === '/api' && request.method === 'POST') {
+  if (request.url === '/api/:id' && request.method === 'POST') {
     let body = ''
+    const cunrrentUrl = new URL(request.url)
+    const reqUrl = url.parse(request.url, true)
 
     request.on('data', (chunck) => {
       body += chunck
     })
+
+
+
     // GET Endpoint
-    // console.log('Request Type:' +
-    //       request.method + ' Endpoint: ' +
-    //       reqUrl.pathname)
+    console.log('Request Type:' +
+          request.method + ' Endpoint: ' +
+          reqUrl.pathname)
 
-    // service.sampleRequest(req, res)
 
+
+
+
+          
+          
     request.on('end', () => {
       const content = JSON.parse(body)
 
@@ -28,19 +42,19 @@ http.createServer(async (request, response) => {
     })
 
     response.writeHead(200, { 'Content-Type': 'application/json' })
-  } else {
-    response.writeHead(404, { 'Content-Type': 'application/json' })
-    response.end(JSON.stringify({ message: 'Route not found' }))
-  }
+  } 
+  // else {
+  //   response.writeHead(404, { 'Content-Type': 'application/json' })
+  //   response.end(JSON.stringify({ message: 'Route not found' }))
+  // }
 }).listen(3000)
 
 export const adapterRoute = (
-  // controller:
+  controller
   // RegisterUserController |
   // AuthUserController |
   // ShowUserController
 ) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/explicit-module-boundary-types
   return async (request, response) => {
     let body
     const httpRequest = {}
@@ -55,8 +69,10 @@ export const adapterRoute = (
       // httpRequest.params = request.params
     })
 
-    // const httpResponse = await controller.handle(httpRequest)
-    // response.status(httpResponse.statusCode).json(httpResponse.body)
+    const httpResponse = await controller.handle(httpRequest)
+
+    response.writeHead(httpResponse.statusCode, { 'Content-Type': 'application/json' })
+    response.end(httpResponse.body)
   }
 }
 
