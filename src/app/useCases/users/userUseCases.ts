@@ -81,22 +81,23 @@ export class UserUseCases implements UserInterface {
   }
 
   async deleteUser (id: string): Promise<void> {
-    const userOrError = user.create(userParams)
+    console.log(id)
+    // const userOrError = user.create(userParams)
 
-    if (userOrError.isLeft()) {
-      return left('new InvaliduserError(userParams)')
-    }
+    // if (userOrError.isLeft()) {
+    //   return left('new InvaliduserError(userParams)')
+    // }
 
-    const user = userOrError.value
+    // const user = userOrError.value
 
-    const user = await this.userRepository.findUserById(user.value)
+    // const user = await this.userRepository.findUserById(user.value)
 
-    if (user !== undefined) {
-      this.userRepository.deleteById(user.id)
+    // if (user !== undefined) {
+    //   this.userRepository.deleteById(user.id)
 
-      return right(true)
-    } else {
-      return left('new InvalidURLNotFound(urlParams)')
-    }
+    //   return right(true)
+    // } else {
+    //   return left('new InvalidURLNotFound(urlParams)')
+    // }
   }
 }
