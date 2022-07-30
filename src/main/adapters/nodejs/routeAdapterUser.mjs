@@ -1,43 +1,48 @@
 import http, { IncomingMessage } from 'node:http'
-import { parse } from 'querystring'
 
 // import { IHttpRequest } from '@src/adapters/http/controllers/ports/http'
 // import { AuthUserController } from '@src/adapters/http/controllers/users/authUserController'
 // import { RegisterUserController } from '@src/adapters/http/controllers/users/registerUserController'
 // import { ShowUserController } from '@src/adapters/http/controllers/users/showUserController'
 
-const server = http.createServer(async (request, res) => {
+http.createServer(async (request, response) => {
   // set the request route
   if (request.url === '/api' && request.method === 'POST') {
-    res.writeHead(200, { 'Content-Type': 'application/json' })
-    // res.write({
-    //   message: 'Hi there, This is a Vanilla Node.js API'
-    // })
-
     let body = ''
 
     request.on('data', (chunck) => {
-      body += chunck.toString()
+      body += chunck
     })
+    // GET Endpoint
+    // console.log('Request Type:' +
+    //       request.method + ' Endpoint: ' +
+    //       reqUrl.pathname)
+
+    // service.sampleRequest(req, res)
 
     request.on('end', () => {
-      console.log(body)
-      res.end(body)
+      const content = JSON.parse(body)
+
+      console.log(content.name)
+      response.end(body)
     })
+
+    response.writeHead(200, { 'Content-Type': 'application/json' })
   } else {
-    res.writeHead(404, { 'Content-Type': 'application/json' })
-    res.end(JSON.stringify({ message: 'Route not found' }))
+    response.writeHead(404, { 'Content-Type': 'application/json' })
+    response.end(JSON.stringify({ message: 'Route not found' }))
   }
 }).listen(3000)
 
-export const adpterRoute = (// controller:
+export const adapterRoute = (
+  // controller:
   // RegisterUserController |
   // AuthUserController |
   // ShowUserController
 ) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/explicit-module-boundary-types
   return async (request, response) => {
-    let body = ''
+    let body
     const httpRequest = {}
 
     request.on('data', (chunck) => {
@@ -45,7 +50,8 @@ export const adpterRoute = (// controller:
     })
 
     request.on('end', () => {
-      httpRequest.body = parse(body)
+      const contentBody = JSON.parse(body)
+      httpRequest.body = contentBody
       // httpRequest.params = request.params
     })
 
