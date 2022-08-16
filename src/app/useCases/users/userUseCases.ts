@@ -9,6 +9,9 @@ import { InvalidPasswordError } from '../../../domain/entities/users/errors/inva
 import { User } from '../../../domain/entities/users/user'
 import { AuthUserResponse } from './authUserResponse'
 import { UserInterface } from './interfaces/userInterface'
+import { UserId } from './validators/userId'
+import { InvalidUserIdError } from './errors/invalidUserId'
+import { DeleteUserResponse } from './responses/deleteUserResponse'
 
 export class UserUseCases implements UserInterface {
   private readonly userRepository: IUserRepository
@@ -80,24 +83,24 @@ export class UserUseCases implements UserInterface {
     return user
   }
 
-  async deleteUser (id: string): Promise<void> {
+  async deleteUser (id: string): Promise<DeleteUserResponse> {
     console.log(id)
-    // const userOrError = user.create(userParams)
+    const idOrError = UserId.create(id)
 
-    // if (userOrError.isLeft()) {
-    //   return left('new InvaliduserError(userParams)')
-    // }
+    if (idOrError.isLeft()) {
+      return left(new InvalidUserIdError(id))
+    }
 
-    // const user = userOrError.value
+    const idValue = idOrError.value
 
-    // const user = await this.userRepository.findUserById(user.value)
+    const user = await this.userRepository.findUserById(idValue.value)
 
-    // if (user !== undefined) {
-    //   this.userRepository.deleteById(user.id)
+    if (user.id !== undefined) {
+      this.userRepository.deleteById(user.id)
 
-    //   return right(true)
-    // } else {
-    //   return left('new InvalidURLNotFound(urlParams)')
-    // }
+      return right('User Deleted')
+    }
+
+    return left('User ID not found!')
   }
 }
