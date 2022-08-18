@@ -1,13 +1,13 @@
 import { generateToken } from '../../external/jwt/jwt'
-import { AuthUserController } from '../../adapters/http/controllers/users/authUserController'
 import { comparePassword, generateHash } from '../../external/bcrypt/bcrypt'
 import { connectionObject } from './utils/connectionObject'
 import { UserUseCases } from '../../app/useCases/users/userUseCases'
 import { PostgresUserRepository } from '../../external/database/postgreSQL/user/postgresUserRepository'
+import { DeleteUserController } from '@src/adapters/http/controllers/users/DeleteUserController'
 
-export const makeAuthUserController = (): AuthUserController => {
-  const authUserRepository = new PostgresUserRepository(connectionObject, generateHash, generateToken, comparePassword)
-  const authUser = new UserUseCases(authUserRepository)
-  const authUserController = new AuthUserController(authUser)
-  return authUserController
+export const makeDeleteUserController = (): DeleteUserController => {
+  const deleteUserRepository = new PostgresUserRepository(connectionObject, generateHash, generateToken, comparePassword)
+  const deleteUser = new UserUseCases(deleteUserRepository)
+  const deleteUserController = new DeleteUserController(deleteUser)
+  return deleteUserController
 }
