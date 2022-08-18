@@ -159,12 +159,12 @@ export class PostgresUserRepository implements IUserRepository {
     )
   }
 
-  async deleteById (url: string): Promise<void> {
+  async deleteById (id: string): Promise<void> {
     await this.postgresHelper.writer(`
       DELETE FROM articles
-      WHERE url = $1
+      WHERE user_id = $1
     `, [
-      url
+      id
     ])
   }
 }
