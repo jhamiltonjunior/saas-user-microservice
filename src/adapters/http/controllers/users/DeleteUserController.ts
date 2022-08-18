@@ -11,15 +11,9 @@ export class DeleteUserController {
   }
 
   async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
-    const url: string = httpRequest.params.url
+    const url: string = httpRequest.params.id
 
     try {
-      // if (!httpRequest.params) {
-      //   const field = !httpRequest.params ? '' : ' '
-
-      //   return badRequest(new MissingParamError(field))
-      // }
-
       const userResponse: DeleteUserResponse =
         await this.userUseCases.deleteUser(url)
 
