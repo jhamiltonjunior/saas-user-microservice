@@ -1,13 +1,13 @@
-import { DeleteArticleResponse } from '../../../../app/useCases/articles/responses/deleteArticleResponse'
-import { ArticleUseCases } from '../../../../app/useCases/articles/articleUseCases'
+import { DeleteUserResponse } from '../../../../app/useCases/users/responses/deleteUserResponse'
+import { UserUseCases } from '../../../../app/useCases/users/userUseCases'
 import { badRequest, ok, serverError } from '../helpers/httpHelper'
 import { IHttpRequest, IHttpResponse } from '../ports/http'
 
-export class DeleteArticleController {
-  private readonly articleUseCases: ArticleUseCases
+export class DeleteUserController {
+  private readonly userUseCases: UserUseCases
 
-  constructor (articleUseCases: ArticleUseCases) {
-    this.articleUseCases = articleUseCases
+  constructor (userUseCases: UserUseCases) {
+    this.userUseCases = userUseCases
   }
 
   async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {
@@ -20,14 +20,14 @@ export class DeleteArticleController {
       //   return badRequest(new MissingParamError(field))
       // }
 
-      const articleResponse: DeleteArticleResponse =
-        await this.articleUseCases.deleteArticle(url)
+      const userResponse: DeleteUserResponse =
+        await this.userUseCases.deleteUser(url)
 
-      if (articleResponse.isLeft()) {
-        return badRequest(articleResponse.value)
+      if (userResponse.isLeft()) {
+        return badRequest(userResponse.value)
       }
 
-      httpRequest.body = articleResponse
+      httpRequest.body = userResponse
     } catch (error) {
       console.log(error)
       serverError('internal')

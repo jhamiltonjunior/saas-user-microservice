@@ -101,6 +101,6 @@ export class UserUseCases implements UserInterface {
       return right('User Deleted')
     }
 
-    return left('User ID not found!')
+    return left(new Error('User ID not found!'))
   }
 }
