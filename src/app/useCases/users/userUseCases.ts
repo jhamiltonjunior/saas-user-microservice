@@ -84,7 +84,6 @@ export class UserUseCases implements UserInterface {
   }
 
   async deleteUser (id: string): Promise<DeleteUserResponse> {
-    console.log(id)
     const idOrError = UserId.create(id)
 
     if (idOrError.isLeft()) {
@@ -95,8 +94,8 @@ export class UserUseCases implements UserInterface {
 
     const user = await this.userRepository.findUserById(idValue.value)
 
-    if (user.id !== undefined) {
-      this.userRepository.deleteById(user.id)
+    if (user.user_id !== undefined) {
+      this.userRepository.deleteById(user.user_id)
 
       return right('User Deleted')
     }
