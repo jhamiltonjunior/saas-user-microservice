@@ -15,7 +15,7 @@ export class RegisterUserController {
     const userData = {
       name: httpRequest.body.name,
       email: httpRequest.body.email,
-      password: httpRequest.body.password
+      password: String(httpRequest.body.password)
     }
 
     try {

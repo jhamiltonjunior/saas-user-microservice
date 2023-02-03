@@ -2,7 +2,7 @@ import { AuthUserResponse } from '../../../../app/useCases/users/authUserRespons
 import { MissingParamError } from '../errors/missingParamError'
 import { badRequest, ok, serverError } from '../helpers/httpHelper'
 import { IHttpRequest, IHttpResponse } from '../ports/http'
-import { UserUseCases } from '@src/app/useCases/users/userUseCases'
+import { UserUseCases } from '../../../../app/useCases/users/userUseCases'
 
 export class AuthUserController {
   private readonly authUser: UserUseCases

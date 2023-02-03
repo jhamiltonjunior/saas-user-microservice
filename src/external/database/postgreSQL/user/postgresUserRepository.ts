@@ -1,4 +1,4 @@
-import { IUserAuthData, IUserData } from '@src/domain/entities/users/interfaces/userData'
+import { IUserAuthData, IUserData } from '../../../../domain/entities/users/interfaces/userData'
 import { IUserRepository } from '../../../../app/repositories/userRepository'
 import { PostgresHelper } from '../helpers/postgresHelper'
 import { v4 as uuidv4 } from 'uuid'

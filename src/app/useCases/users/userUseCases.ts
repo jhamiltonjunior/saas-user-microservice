@@ -42,6 +42,8 @@ export class UserUseCases implements UserInterface {
       }
     }
 
+    console.log(right(userData))
+
     return right(userData)
   }
 
