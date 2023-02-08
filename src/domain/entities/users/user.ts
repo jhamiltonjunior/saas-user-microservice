@@ -21,6 +21,8 @@ export class User {
     this.email = email
     this.password = password
 
+    console.log(name, email, password)
+
     Object.freeze(this)
   }
 

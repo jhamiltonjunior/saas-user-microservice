@@ -19,6 +19,8 @@ export const adpterRoute = (controller:
       params: req.params
     }
 
+    console.log(httpRequest)
+
     const httpResponse = await controller.handle(httpRequest)
 
     res.status(httpResponse.statusCode).json(httpResponse.body)
