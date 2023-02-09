@@ -42,6 +42,10 @@ export class UserUseCases implements UserInterface {
       }
     }
 
+    if ((await exists).valueOf()) {
+      return left(new InvalidEmailError('email exist'))
+    }
+
     return right(userData)
   }
 

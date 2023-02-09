@@ -4,12 +4,13 @@ import { IHttpResponse } from '../ports/http'
 export const badRequest = (error: Error): IHttpResponse => ({
   statusCode: 400,
   body: error.message,
+  redirect: `${process.env.FRONTEND_SITE}/login`
 })
 
 export const created = (data: any): IHttpResponse => ({
   statusCode: 201,
   body: data,
-  redirect: `${process.env.FRONTEND_SITE}/login`
+  redirect: `${process.env.FRONTEND_SITE}`
   // token,
 })
 

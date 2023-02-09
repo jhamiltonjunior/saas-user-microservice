@@ -23,10 +23,27 @@ export const adpterRoute = (controller:
 
     // httpResponse.body.message
 
-    res.status(httpResponse.statusCode)
+    // res.status(httpResponse.statusCode).json(httpResponse.body)
 
-    if (httpResponse.body.message === 'success') {
-      res.redirect(httpResponse.redirect)
-    }
+    // if (httpResponse.body.message === 'email exist') {
+    //   res.status(httpResponse.statusCode).redirect(httpResponse.redirect)
+    // }
+
+    // if (
+    //   httpResponse.body.message === 'success'
+    // ) {
+    //   res.status(httpResponse.statusCode)
+    //     .redirect(httpResponse.redirect)
+    // }
+
+    // if (
+    //   httpResponse.body.message === 'email exist'
+    // ) {
+    //   res.status(httpResponse.statusCode)
+    //     .redirect(httpResponse.redirect)
+    // }
+
+    res.status(httpResponse.statusCode)
+      .redirect(httpResponse.redirect)
   }
 }
