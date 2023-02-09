@@ -9,6 +9,7 @@ export const badRequest = (error: Error): IHttpResponse => ({
 export const created = (data: any): IHttpResponse => ({
   statusCode: 201,
   body: data,
+  redirect: `${process.env.FRONTEND_SITE}/login`
   // token,
 })
 

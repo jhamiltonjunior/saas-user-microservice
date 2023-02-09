@@ -19,10 +19,14 @@ export const adpterRoute = (controller:
       params: req.params
     }
 
-    console.log(httpRequest)
-
     const httpResponse = await controller.handle(httpRequest)
 
-    res.status(httpResponse.statusCode).json(httpResponse.body)
+    // httpResponse.body.message
+
+    res.status(httpResponse.statusCode)
+
+    if (httpResponse.body.message === 'success') {
+      res.redirect(httpResponse.redirect)
+    }
   }
 }

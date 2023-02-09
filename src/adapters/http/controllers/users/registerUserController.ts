@@ -18,9 +18,6 @@ export class RegisterUserController {
       password: String(httpRequest.body.password)
     }
 
-    // console.log(httpRequest)
-    // console.log(userData)
-
     try {
       if (!httpRequest.body.name) {
         const field = httpRequest.body.name = 'name'
@@ -39,6 +36,6 @@ export class RegisterUserController {
       serverError('internal')
     }
 
-    return created(userData)
+    return created({ message: 'success' })
   }
 }
