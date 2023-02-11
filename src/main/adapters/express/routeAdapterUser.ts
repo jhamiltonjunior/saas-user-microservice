@@ -4,8 +4,8 @@ import { RegisterUserController } from '../../../adapters/http/controllers/users
 import { AuthUserController } from '../../../adapters/http/controllers/users/authUserController'
 
 import { IHttpRequest } from '../../../adapters/http/controllers/ports/http'
-import { ShowUserController } from '@src/adapters/http/controllers/users/showUserController'
-import { DeleteUserController } from '@src/adapters/http/controllers/users/DeleteUserController'
+import { ShowUserController } from '../../../adapters/http/controllers/users/showUserController'
+import { DeleteUserController } from '../../../adapters/http/controllers/users/DeleteUserController'
 
 export const adpterRoute = (controller:
   RegisterUserController |

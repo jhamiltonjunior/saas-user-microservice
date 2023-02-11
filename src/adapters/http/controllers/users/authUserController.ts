@@ -19,6 +19,8 @@ export class AuthUserController {
       password: httpRequest.body.password
     }
 
+    console.log(authData)
+
     try {
       if (!httpRequest.body.email || !httpRequest.body.password) {
         const field = httpRequest.body ? 'email' : 'password'
