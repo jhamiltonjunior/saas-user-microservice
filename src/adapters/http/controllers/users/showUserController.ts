@@ -1,7 +1,7 @@
 import { UserUseCases } from '@src/app/useCases/users/userUseCases'
 import { IUserData } from '@src/domain/entities/users/interfaces/userData'
 import { MissingParamError } from '../errors/missingParamError'
-import { badRequest, created, serverError } from '../helpers/httpHelper'
+import { badRequest, ok, serverError } from '../helpers/httpHelper'
 import { IHttpRequest, IHttpResponse } from '../ports/http'
 
 export class ShowUserController {
@@ -36,6 +36,6 @@ export class ShowUserController {
       serverError('internal')
     }
 
-    return created(userData)
+    return ok(userData)
   }
 }

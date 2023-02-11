@@ -13,6 +13,40 @@ CREATE TABLE users(
 
 
 
+DROP TABLE IF EXISTS permissions;
+
+CREATE TABLE permissions (
+  permissions_id uuid PRIMARY KEY,
+  
+  name VARCHAR(20) DEFAULT 'reader',
+  description VARCHAR (50),
+
+  created_at TIMESTAMP
+);
+
+
+DROP TABLE IF EXISTS users_permissions;
+
+CREATE TABLE users_permissions (
+  users_permissions_id uuid PRIMARY KEY,
+
+  user_id uuid,
+  permissions_id uuid,
+  
+  FOREIGN KEY(user_id)
+    REFERENCES users(user_id)
+      ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+  FOREIGN KEY(permissions_id)
+    REFERENCES permissions(permissions_id)
+      ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+
+
 DROP TABLE IF EXISTS articles;
 
 CREATE TABLE articles(
@@ -36,17 +70,9 @@ CREATE TABLE articles(
 
 
 
-DROP TABLE IF EXISTS permissions;
 
-CREATE TABLE permissions (
-  permissions_id uuid PRIMARY KEY,
-  
-  name VARCHAR(20) DEFAULT 'reader',
-  description VARCHAR (50),
 
-  created_at TIMESTAMP
-);
-
+-- INSERT INTO ...
 
 INSERT INTO permissions (
   permissions_id,
@@ -71,28 +97,6 @@ VALUES (
   'writer',
   'this user also can create articles',
   NOW()
-);
-
-
-
-
-DROP TABLE IF EXISTS users_permissions;
-
-CREATE TABLE users_permissions (
-  users_permissions_id uuid PRIMARY KEY,
-
-  user_id uuid,
-  permissions_id uuid,
-  
-  FOREIGN KEY(user_id)
-    REFERENCES users(user_id)
-      ON DELETE CASCADE
-        ON UPDATE CASCADE,
-
-  FOREIGN KEY(permissions_id)
-    REFERENCES permissions(permissions_id)
-      ON DELETE CASCADE
-        ON UPDATE CASCADE
 );
 
 

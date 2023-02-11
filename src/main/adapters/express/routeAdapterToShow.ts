@@ -1,17 +1,10 @@
 import { Request, Response } from 'express'
 
-import { RegisterUserController } from '../../../adapters/http/controllers/users/registerUserController'
-import { AuthUserController } from '../../../adapters/http/controllers/users/authUserController'
-
 import { IHttpRequest } from '../../../adapters/http/controllers/ports/http'
 import { ShowUserController } from '../../../adapters/http/controllers/users/showUserController'
-import { DeleteUserController } from '../../../adapters/http/controllers/users/DeleteUserController'
 
-export const adpterRoute = (controller:
-  RegisterUserController |
-  AuthUserController |
-  ShowUserController |
-  DeleteUserController
+export const routeAdapterToShowUser = (controller:
+  ShowUserController
 ): any => {
   return async (req: Request, res: Response) => {
     const httpRequest: IHttpRequest = {
@@ -44,6 +37,6 @@ export const adpterRoute = (controller:
     // }
 
     res.status(httpResponse.statusCode)
-      .redirect(httpResponse.redirect)
+      .json(httpResponse)
   }
 }
