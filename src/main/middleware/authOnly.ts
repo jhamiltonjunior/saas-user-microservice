@@ -17,7 +17,6 @@ export const auth = (req: Request, res: Response, next: NextFunction): void => {
 
     try {
       const id = validateUser(token)
-      console.log(id)
       if (id === '') {
         res.status(401).json({ message: 'invalid token' })
       }
@@ -31,7 +30,7 @@ export const auth = (req: Request, res: Response, next: NextFunction): void => {
       return next()
       // })
     } catch (err) {
-      console.log(err)
+      console.log('main/middleware', err)
       res.status(401).json({ message: 'invalid token' })
     }
   }

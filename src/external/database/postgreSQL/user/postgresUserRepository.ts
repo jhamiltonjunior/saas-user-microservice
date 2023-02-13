@@ -70,9 +70,6 @@ export class PostgresUserRepository implements IUserRepository {
       [email]
     )
 
-    // console.log('AuthUserRepository', result)
-    // console.log('AuthUserRepository', result.rows[0])
-
     return result.rows[0]
   }
 

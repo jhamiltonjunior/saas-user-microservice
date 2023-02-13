@@ -37,8 +37,6 @@ export const routeAdapterToAuthenticate = (controller:
     //     .redirect(httpResponse.redirect)
     // }
 
-    console.log(httpResponse.body.token)
-
     if (httpResponse.statusCode === 400) {
       res.status(httpResponse.statusCode)
         // .json('login failed')

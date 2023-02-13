@@ -25,9 +25,6 @@ export class AuthUserRepository implements IAuthUserRepository {
       [email]
     )
 
-    // console.log('AuthUserRepository', result)
-    // console.log('AuthUserRepository', result.rows[0])
-
     return result.rows[0]
   }
 

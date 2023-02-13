@@ -27,7 +27,6 @@ export class RegisterUserRepository implements IRegisterUserRepository {
 
   public async add (user: IUserData): Promise<void> {
     const hash = await this.hash(user.password)
-    console.log('"add" method')
 
     await this.postgresHelper.reader(
       'INSERT INTO users(user_id, name, email, password) VALUES ($1, $2, $3, $4)',
@@ -37,7 +36,7 @@ export class RegisterUserRepository implements IRegisterUserRepository {
 
   public async exists (email: string): Promise<boolean> {
     const result = await this.findUserByEmail(email)
-    console.log('result', result)
+    console.log('external/postgreSQL/user/registeruser../', result)
 
     if (result != null) {
       if (result.email === email) {
