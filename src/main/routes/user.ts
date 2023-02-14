@@ -12,7 +12,7 @@ export default (router: Router): void => {
   router.post('/user', routeAdapterToAuthenticate(makeAuthUserController()))
   router.get('/user/:id', routeAdapterToShowUser(makeShowUniqueUserController()))
 
-  router.post('/user', routeAdapterToRegister(makeRegisterUserController()))
+  router.post('/user/register', routeAdapterToRegister(makeRegisterUserController()))
 
   router.delete('/user/:id', routeAdapterToDelete(makeDeleteUserController()))
 

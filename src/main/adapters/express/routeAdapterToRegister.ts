@@ -15,20 +15,16 @@ export const routeAdapterToRegister = (controller:
     const httpResponse = await controller.handle(httpRequest)
 
     // httpResponse.body.message
-
     // res.status(httpResponse.statusCode).json(httpResponse.body)
-
     // if (httpResponse.body.message === 'email exist') {
     //   res.status(httpResponse.statusCode).redirect(httpResponse.redirect)
     // }
-
     // if (
     //   httpResponse.body.message === 'success'
     // ) {
     //   res.status(httpResponse.statusCode)
     //     .redirect(httpResponse.redirect)
     // }
-
     // if (
     //   httpResponse.body.message === 'email exist'
     // ) {
@@ -36,7 +32,15 @@ export const routeAdapterToRegister = (controller:
     //     .redirect(httpResponse.redirect)
     // }
 
+    if (httpResponse.statusCode === 400) {
+      res.status(httpResponse.statusCode)
+        .redirect(`${process.env.ADMIN}/register`)
+    }
+
+    console.log(httpResponse.body)
+
     res.status(httpResponse.statusCode)
+      .cookie('token', httpResponse.body.token)
       .redirect(httpResponse.redirect)
   }
 }
