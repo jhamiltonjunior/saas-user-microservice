@@ -37,10 +37,7 @@ export const routeAdapterToRegister = (controller:
         .redirect(`${process.env.ADMIN}/register`)
     }
 
-    console.log(httpResponse.body)
-
     res.status(httpResponse.statusCode)
-      .cookie('token', httpResponse.body.token)
-      .redirect(httpResponse.redirect)
+      .redirect(`${httpResponse.redirect}/login`)
   }
 }
