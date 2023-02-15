@@ -32,12 +32,15 @@ export const routeAdapterToRegister = (controller:
     //     .redirect(httpResponse.redirect)
     // }
 
-    if (httpResponse.statusCode === 400) {
+    if (httpResponse.statusCode !== 201) {
       res.status(httpResponse.statusCode)
         .redirect(`${process.env.ADMIN}/register`)
     }
 
-    res.status(httpResponse.statusCode)
-      .redirect(`${httpResponse.redirect}/login`)
+    if (httpResponse.statusCode === 201) {
+      console.log(httpResponse)
+      res.status(httpResponse.statusCode)
+        .redirect(`${process.env.ADMIN}/login`)
+    }
   }
 }

@@ -15,7 +15,11 @@ export class RegisterUserController {
     const userData = {
       name: httpRequest.body.name,
       email: httpRequest.body.email,
-      password: String(httpRequest.body.password)
+      password: String(httpRequest.body.password),
+
+      // Payament API
+      mobilePhone: httpRequest.body.mobilePhone,
+      cpfCnpj: httpRequest.body.cpfCnpj,
     }
 
     try {
@@ -36,6 +40,6 @@ export class RegisterUserController {
       serverError('internal')
     }
 
-    return created({ message: 'success' })
+    return created(userData)
   }
 }
