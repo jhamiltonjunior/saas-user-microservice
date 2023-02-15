@@ -45,10 +45,10 @@ export class PostgresUserRepository implements IUserRepository {
     )
 
     // Create default permission (reader) for news users
-    await this.generateDefaultPermission(
-      result.rows[0].user_id,
-      '9383cece-d865-446b-98b2-7ff40881b4bc'
-    )
+    // await this.generateDefaultPermission(
+    //   result.rows[0].user_id,
+    //   '9383cece-d865-446b-98b2-7ff40881b4bc'
+    // )
   }
 
   // This method create permission to gerenciar the actions of users
