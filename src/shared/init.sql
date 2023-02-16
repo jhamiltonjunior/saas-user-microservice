@@ -9,6 +9,8 @@ CREATE TABLE users(
   name VARCHAR(80),
   email VARCHAR(80),
   password VARCHAR(80)
+
+  user_payment_id VARCHAR(20)
 );
 
 
@@ -49,7 +51,7 @@ CREATE TABLE users_permissions (
 
 DROP TABLE IF EXISTS articles;
 
-CREATE TABLE articles(
+CREATE TABLE tasks(
   article_id uuid PRIMARY KEY,
   -- article_id uuid DEFAULT uuid_generate_v4 (),
   -- article_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
@@ -94,7 +96,7 @@ INSERT INTO permissions (
 )
 VALUES (
   uuid_generate_v4(),
-  'writer',
+  'starter',
   'this user also can create articles',
   NOW()
 );
