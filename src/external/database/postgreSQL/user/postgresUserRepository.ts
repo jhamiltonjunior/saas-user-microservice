@@ -32,16 +32,15 @@ export class PostgresUserRepository implements IUserRepository {
 
   public async add (user: IUserData): Promise<void> {
     const hash = await this.hash(user.password)
-
-    const result = await this.postgresHelper.reader(
+    await this.postgresHelper.reader(
       `INSERT INTO users(
-        user_id, name, email, password
+        user_id, name, email, password, user_payment_id
       )
       VALUES (
-        $1, $2, $3, $4
+        $1, $2, $3, $4, $5
       )
       RETURNING user_id`,
-      [uuidv4(), user.name, user.email, hash]
+      [uuidv4(), user.name, user.email, hash, null]
     )
 
     // Create default permission (reader) for news users

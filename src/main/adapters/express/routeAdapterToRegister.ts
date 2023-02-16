@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import { RegisterUserController } from '../../../adapters/http/controllers/users/registerUserController'
 import { IHttpRequest } from '../../../adapters/http/controllers/ports/http'
 import { createClient } from './utils/createClientPayment'
+import { sendAuthorization } from './utils/sendAuthorization'
 
 export const routeAdapterToRegister = (controller:
   RegisterUserController
@@ -44,7 +45,10 @@ export const routeAdapterToRegister = (controller:
       (async () => {
         // eslint-disable-next-line no-undef
         const data = await createClient(httpResponse)
-        console.log(data.status)
+
+        if (data.status === 200) {
+          sendAuthorization()
+        }
       })()
 
       res.status(httpResponse.statusCode)
