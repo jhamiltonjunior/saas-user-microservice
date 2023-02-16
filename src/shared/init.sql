@@ -49,7 +49,7 @@ CREATE TABLE users_permissions (
 
 
 
-DROP TABLE IF EXISTS articles;
+DROP TABLE IF EXISTS tasks;
 
 CREATE TABLE tasks(
   article_id uuid PRIMARY KEY,
@@ -153,7 +153,7 @@ VALUES (
 
 
 
-
+-- PRODUCTION
 
 CREATE TABLE users(
   user_id uuid PRIMARY KEY,
@@ -166,6 +166,7 @@ CREATE TABLE users(
   createdAt TIMESTAMP NOT NULL,
   updatedAt TIMESTAMP NOT NULL,
   
+  user_payment_id VARCHAR(20)
   -- PRIMARY KEY (id)
 );
 
