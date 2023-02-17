@@ -47,7 +47,9 @@ export const routeAdapterToRegister = (controller:
         const data = await createClient(httpResponse)
 
         if (data.status === 200) {
-          sendAuthorization()
+          const json = await data.json()
+          const idClient = json.id
+          sendAuthorization(idClient)
         }
       })()
 

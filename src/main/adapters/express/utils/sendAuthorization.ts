@@ -4,7 +4,7 @@
 
 import amqp from 'amqplib/callback_api'
 
-export const sendAuthorization = (): void => {
+export const sendAuthorization = (data: any): void => {
   amqp.connect('amqp://localhost', function (error0: any, connection: any) {
     if (error0) {
       throw error0
@@ -13,14 +13,13 @@ export const sendAuthorization = (): void => {
       if (error1) {
         throw error1
       }
-      const queue = 'hello'
-      const msg = 'Hello world'
+      const queue = 'createClient'
 
       channel.assertQueue(queue, {
         durable: false
       })
 
-      channel.sendToQueue(queue, Buffer.from(msg))
+      channel.sendToQueue(queue, Buffer.from(data))
     })
 
     setTimeout(function () {
