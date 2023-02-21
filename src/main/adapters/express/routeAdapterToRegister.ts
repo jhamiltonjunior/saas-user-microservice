@@ -48,8 +48,8 @@ export const routeAdapterToRegister = (controller:
 
         if (data.status === 200) {
           const json = await data.json()
-          const idClient = json.id
-          sendAuthorization(idClient)
+
+          sendAuthorization(`${json.id} ${httpResponse.body.email}`)
         }
       })()
 
