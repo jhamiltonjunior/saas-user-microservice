@@ -37,7 +37,7 @@ export const routeAdapterToAuthenticate = (controller:
     //     .redirect(httpResponse.redirect)
     // }
 
-    if (httpResponse.statusCode === 400) {
+    if (httpResponse.statusCode !== 200) {
       res.status(httpResponse.statusCode)
         // .json('login failed')
         .redirect(`${process.env.ADMIN}/login`)
@@ -45,7 +45,6 @@ export const routeAdapterToAuthenticate = (controller:
 
     res.status(httpResponse.statusCode)
       .cookie('token', httpResponse.body.token)
-      // .setHeader('Authorization', httpResponse.body.token)
       .redirect(`${process.env.ADMIN}`)
   }
 }

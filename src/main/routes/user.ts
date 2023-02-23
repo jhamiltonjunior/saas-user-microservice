@@ -9,7 +9,7 @@ import { makeRegisterUserController } from '../factories/register'
 import { makeShowUniqueUserController } from '../factories/showUnique'
 
 export default (router: Router): void => {
-  router.post('/user', routeAdapterToAuthenticate(makeAuthUserController()))
+  router.post('/user/auth', routeAdapterToAuthenticate(makeAuthUserController()))
   router.get('/user/:id', routeAdapterToShowUser(makeShowUniqueUserController()))
 
   router.post('/user/register', routeAdapterToRegister(makeRegisterUserController()))

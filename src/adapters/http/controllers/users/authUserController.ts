@@ -8,9 +8,8 @@ export class AuthUserController {
   private readonly authUser: UserUseCases
   // public readonly hash: string
 
-  constructor (authUser: UserUseCases) {
-    this.authUser = authUser
-    // this.hash = hash
+  constructor (useCases: UserUseCases) {
+    this.authUser = useCases
   }
 
   async handle (httpRequest: IHttpRequest): Promise<IHttpResponse> {

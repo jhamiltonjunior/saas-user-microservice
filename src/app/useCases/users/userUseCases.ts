@@ -60,7 +60,6 @@ export class UserUseCases implements UserInterface {
     }
 
     const result = await this.userRepository.findUserByEmail(authData.email)
-    // console.log('authUser', result.user_id)
     const checkedPassword = await this.userRepository.comparePassword(
       // password of request body and password of database result
       authData.password, result.password

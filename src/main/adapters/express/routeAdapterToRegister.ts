@@ -39,12 +39,15 @@ export const routeAdapterToRegister = (controller:
         .redirect(`${process.env.ADMIN}/register`)
     }
 
+    console.log(httpResponse)
+
     if (httpResponse.statusCode === 201) {
       httpResponse.body.password = '';
 
       (async () => {
         // eslint-disable-next-line no-undef
         const data = await createClient(httpResponse)
+        console.log(data.status)
 
         if (data.status === 200) {
           const json = await data.json()
@@ -52,7 +55,6 @@ export const routeAdapterToRegister = (controller:
           sendAuthorization(`${json.id} ${httpResponse.body.email}`)
         }
       })()
-
       res.status(httpResponse.statusCode)
         .redirect(`${process.env.ADMIN}/login`)
     }

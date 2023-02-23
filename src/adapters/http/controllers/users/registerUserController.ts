@@ -20,7 +20,7 @@ export class RegisterUserController {
       // Payament API
       mobilePhone: httpRequest.body.mobilePhone,
       cpfCnpj: httpRequest.body.cpfCnpj,
-      notificationDisabled: httpRequest.body.notificationDisabled
+      notificationDisabled: httpRequest.body.notificationDisabled === 'on'
     }
 
     try {

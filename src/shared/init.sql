@@ -8,7 +8,7 @@ CREATE TABLE users(
   
   name VARCHAR(80),
   email VARCHAR(80),
-  password VARCHAR(80)
+  password VARCHAR(80),
 
   user_payment_id VARCHAR(20)
 );
