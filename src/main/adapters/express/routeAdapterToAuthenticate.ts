@@ -17,7 +17,7 @@ export const routeAdapterToAuthenticate = (controller:
 
     // httpResponse.body.message
 
-    // res.status(httpResponse.statusCode).json(httpResponse.body)
+    res.status(httpResponse.statusCode).json(httpResponse.body)
 
     // if (httpResponse.body.message === 'email exist') {
     //   res.status(httpResponse.statusCode).redirect(httpResponse.redirect)
@@ -37,14 +37,14 @@ export const routeAdapterToAuthenticate = (controller:
     //     .redirect(httpResponse.redirect)
     // }
 
-    if (httpResponse.statusCode !== 200) {
-      res.status(httpResponse.statusCode)
-        // .json('login failed')
-        .redirect(`${process.env.ADMIN}/login`)
-    }
+    // if (httpResponse.statusCode !== 200) {
+    //   res.status(httpResponse.statusCode)
+    //     // .json('login failed')
+    //     .redirect(`${process.env.ADMIN}/login`)
+    // }
 
-    res.status(httpResponse.statusCode)
-      .cookie('token', httpResponse.body.token)
-      .redirect(`${process.env.ADMIN}`)
+    // res.status(httpResponse.statusCode)
+    //   .cookie('token', httpResponse.body.token)
+    //   .redirect(`${process.env.ADMIN}`)
   }
 }

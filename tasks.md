@@ -19,7 +19,7 @@ não venha me atrapalhar
 # All features
 
 - [x] O user é autenticada usando jwt
-- [ ] O id do user não é um numero inteiro, mas sim um UUID gerado no postgres
+- [x] O id do user não é um numero inteiro, mas sim um UUID gerado no postgres
 - [x] O id do user não é um numero inteiro, mas sim um UUID gerado na aplicação
 
 - [x] autenticar um usuário

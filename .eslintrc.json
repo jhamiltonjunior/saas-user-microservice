@@ -3,6 +3,20 @@
       "es2021": true,
       "node": true
   },
+  "overrides": [
+    {
+      "files": [
+        "**/*.spec.js",
+        "**/*.spec.ts",
+        "**/*.test.js",
+        "**/*.test.ts",
+        "**/*.spec.jsx"
+      ],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
   "extends": [
       "standard"
   ],

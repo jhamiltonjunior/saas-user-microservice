@@ -2,8 +2,8 @@ import { UserUseCases } from '../../app/useCases/users/userUseCases'
 import { ShowUserController } from '../../adapters/http/controllers/users/showUserController'
 import { comparePassword, generateHash } from '../../external/bcrypt/bcrypt'
 import { connectionObject } from './utils/connectionObject'
-import { PostgresUserRepository } from '@src/external/database/postgreSQL/user/postgresUserRepository'
-import { generateToken } from '@src/external/jwt/jwt'
+import { PostgresUserRepository } from '../../external/database/postgreSQL/user/postgresUserRepository'
+import { generateToken } from '../../external/jwt/jwt'
 
 export const makeShowUniqueUserController = (): ShowUserController => {
   const postgresUserRepository = new PostgresUserRepository(

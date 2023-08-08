@@ -16,31 +16,6 @@ export const routeAdapterToRegister = (controller:
 
     const httpResponse = await controller.handle(httpRequest)
 
-    // httpResponse.body.message
-    // res.status(httpResponse.statusCode).json(httpResponse.body)
-    // if (httpResponse.body.message === 'email exist') {
-    //   res.status(httpResponse.statusCode).redirect(httpResponse.redirect)
-    // }
-    // if (
-    //   httpResponse.body.message === 'success'
-    // ) {
-    //   res.status(httpResponse.statusCode)
-    //     .redirect(httpResponse.redirect)
-    // }
-    // if (
-    //   httpResponse.body.message === 'email exist'
-    // ) {
-    //   res.status(httpResponse.statusCode)
-    //     .redirect(httpResponse.redirect)
-    // }
-
-    if (httpResponse.statusCode !== 201) {
-      res.status(httpResponse.statusCode)
-        .redirect(`${process.env.ADMIN}/register`)
-    }
-
-    console.log(httpResponse)
-
     if (httpResponse.statusCode === 201) {
       httpResponse.body.password = '';
 
@@ -55,8 +30,10 @@ export const routeAdapterToRegister = (controller:
           sendAuthorization(`${json.id} ${httpResponse.body.email}`)
         }
       })()
-      res.status(httpResponse.statusCode)
-        .redirect(`${process.env.ADMIN}/login`)
+
+      res.status(httpResponse.statusCode).json(httpResponse.body)
     }
+
+    res.status(httpResponse.statusCode).json(httpResponse.body)
   }
 }
