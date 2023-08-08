@@ -140,15 +140,13 @@ describe('Use Cases of User', () => {
   // d
 
   test('should not create user if email exists', async () => {
-    const user = { name: 'Hamilton', email: 'hamilton@gmail.com', password: '123456' }
+    const user = { name: 'Hamilton', email: 'jhsj@gmail.com', password: '123456' }
 
     const useCases = new UserUseCases(postgresUserRepository)
 
     await useCases.registerUserOnDatabase(user)
 
     const newInvalidUser = await useCases.registerUserOnDatabase(user)
-
-    console.log(await useCases.registerUserOnDatabase(user))
 
     expect(newInvalidUser).toEqual(left(new InvalidEmailError('email exist')))
   })

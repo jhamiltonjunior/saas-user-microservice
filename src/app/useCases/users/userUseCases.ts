@@ -12,6 +12,7 @@ import { UserInterface } from './interfaces/userInterface'
 import { UserId } from './validators/userId'
 import { InvalidUserIdError } from './errors/invalidUserId'
 import { DeleteUserResponse } from './responses/deleteUserResponse'
+import { InvalidUserError } from './errors/invalidUser'
 
 export class UserUseCases implements UserInterface {
   private readonly userRepository: IUserRepository
@@ -71,6 +72,14 @@ export class UserUseCases implements UserInterface {
     } else if (authData.token === undefined) {
       authData.email = 'InvalidEmail'
       authData.password = 'InvalidPassword'
+    }
+
+    if (!result.email) {
+      return left(new InvalidUserError('InvalidEmail', ''))
+    }
+
+    if (!checkedPassword) {
+      return left(new InvalidUserError('', 'InvalidPassword'))
     }
 
     return right(authData)
