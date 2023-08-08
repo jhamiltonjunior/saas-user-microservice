@@ -21,27 +21,30 @@ const postgresUserRepository = new PostgresUserRepository(
 )
 
 describe('External Postgres Repository', () => {
-  test('should be undefined case the email not exist', async () => {
-    const email = 'tes4188bd4f-8334-4859-89fa-eee@gmail.com'
-
-    const user = await postgresUserRepository.findUserByEmail(email)
-
-    // const newInvalidUser = await user.deleteUser(id)
-
-    expect(user).toBeUndefined()
-  })
-
-  test('should be Truthy case the email exist', async () => {
+  /**
+   * This tests does not persist the datas in database
+   */
+  test('should be true case the email exists', async () => {
     const email = 'test@gmail.com'
 
     const useCases = new UserUseCases(postgresUserRepository)
 
-    await useCases.registerUserOnDatabase({ name: 'Hamilton', email: 'test@gmail.com', password: '123456' })
+    await useCases.registerUserOnDatabase({ name: 'Hamilton', email, password: '123456' })
 
-    const user = await postgresUserRepository.findUserByEmail(email)
+    const user = await postgresUserRepository.exists(email)
 
     // const newInvalidUser = await user.deleteUser(id)
 
-    expect(user).toBeTruthy()
+    expect(user).toBe(true)
+  })
+
+  test('should be false case the email not exists', async () => {
+    const email = 'tes4188bd4f-8334-4859-89fa@gmail.com'
+
+    const user = await postgresUserRepository.exists(email)
+
+    // const newInvalidUser = await user.deleteUser(id)
+
+    expect(user).toBe(false)
   })
 })

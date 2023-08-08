@@ -1,18 +1,18 @@
 import { config as dotenvConfig } from 'dotenv'
 
-import { InvalidNameError } from '../src/domain/entities/users/errors/invalidName'
+import { InvalidNameError } from '../../src/domain/entities/users/errors/invalidName'
 // import { IUserData } from '../src/domain/entities/users/interfaces/userData'
-import { left } from '../src/shared/either'
+import { left } from '../../src/shared/either'
 
 // import { IUserRepository } from '../src/app/repositories/userRepository'
 // import { UserResponse } from '../src/app/useCases/users/userResponse'
 // import { IRegisterUser } from '../src/app/useCases/users/interfaces/registerUser'
-import { InvalidEmailError } from '../src/domain/entities/users/errors/invalidEmail'
-import { InvalidPasswordError } from '../src/domain/entities/users/errors/invalidPassword'
-import { UserUseCases } from '../src/app/useCases/users/userUseCases'
-import { PostgresUserRepository } from '../src/external/database/postgreSQL/user/postgresUserRepository'
-import { comparePassword, generateHash } from '../src/external/bcrypt/bcrypt'
-import { generateToken } from '../src/external/jwt/jwt'
+import { InvalidEmailError } from '../../src/domain/entities/users/errors/invalidEmail'
+import { InvalidPasswordError } from '../../src/domain/entities/users/errors/invalidPassword'
+import { UserUseCases } from '../../src/app/useCases/users/userUseCases'
+import { PostgresUserRepository } from '../../src/external/database/postgreSQL/user/postgresUserRepository'
+import { comparePassword, generateHash } from '../../src/external/bcrypt/bcrypt'
+import { generateToken } from '../../src/external/jwt/jwt'
 
 dotenvConfig()
 
