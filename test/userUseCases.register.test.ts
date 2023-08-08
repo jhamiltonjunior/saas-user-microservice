@@ -140,7 +140,7 @@ describe('Use Cases of User', () => {
   // d
 
   test('should not create user if email exists', async () => {
-    const user = { name: 'Hamilton', email: 'jhsj@gmail.com', password: '123456' }
+    const user = { name: 'Hamilton', email: 'test@gmail.com', password: '123456' }
 
     const useCases = new UserUseCases(postgresUserRepository)
 

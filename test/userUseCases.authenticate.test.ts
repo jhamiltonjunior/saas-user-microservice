@@ -99,7 +99,7 @@ describe('Use Cases of User', () => {
   // d
 
   test('should not autenticate user if the password is incorrect', async () => {
-    const user = { email: 'jhsj@gmail.com', password: '1234567' }
+    const user = { email: 'test@gmail.com', password: '1234567' }
 
     const useCases = new UserUseCases(postgresUserRepository)
 

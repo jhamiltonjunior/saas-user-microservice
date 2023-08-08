@@ -106,12 +106,16 @@ export class UserUseCases implements UserInterface {
 
     const user = await this.userRepository.findUserById(idValue.value)
 
-    if (user.user_id !== undefined) {
+    // console.log(user)
+
+    if (user === undefined) {
+      return left(new Error('User ID not exists!'))
+    } else if (user.user_id) {
       this.userRepository.deleteById(user.user_id)
 
       return right('User Deleted')
     }
 
-    return left(new Error('User ID not found!'))
+    return left(new InvalidUserIdError(id))
   }
 }
