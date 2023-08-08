@@ -41,6 +41,7 @@ export class UserUseCases implements UserInterface {
           password: user.password.value
         })
       }
+      return right('User created')
     }
 
     if ((await exists).valueOf()) {
@@ -105,8 +106,6 @@ export class UserUseCases implements UserInterface {
     const idValue = idOrError.value
 
     const user = await this.userRepository.findUserById(idValue.value)
-
-    // console.log(user)
 
     if (user === undefined) {
       return left(new Error('User ID not exists!'))
