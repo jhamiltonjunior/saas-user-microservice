@@ -31,7 +31,7 @@ describe('External Server', () => {
   })
 
   it('test /api/user/register - post', async () => {
-    // user.email = randomUUID() + '@gmail.com'
+    // user.email = randomUUID() + '@gmail.com
 
     const response = await request(app)
       .post('/api/user/register')
@@ -41,6 +41,12 @@ describe('External Server', () => {
 
     // console.log(response.statusCode)
     // console.log(response.body)
+
+    expect(typeof response.body.token).toEqual('string')
+    expect(response.body.token).toBeDefined()
+    expect(response.body.token).toBeTruthy()
+
+    delete response.body.token
 
     expect(response.body).toEqual(user)
     expect(response.statusCode).toEqual(201)

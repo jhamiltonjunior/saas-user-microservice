@@ -2,6 +2,7 @@ export interface IUserData {
   // eslint-disable-next-line camelcase
   user_id?: string
   name?: string
+  token?: string
   email: string
   password: string
 }

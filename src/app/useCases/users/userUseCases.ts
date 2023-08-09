@@ -35,11 +35,13 @@ export class UserUseCases implements UserInterface {
 
     if (!(await exists).valueOf()) {
       if (user.name !== undefined) {
-        await this.userRepository.add({
+        const userId = await this.userRepository.add({
           name: user.name.value,
           email: user.email.value,
           password: user.password.value
         })
+
+        userData.token = await this.userRepository.authenticateUser(userId)
       }
       return right('User created')
     }
