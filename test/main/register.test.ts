@@ -1,32 +1,69 @@
 /* eslint-disable no-undef */
 
-import fetch, { Response } from 'node-fetch'
-
 import { config as dotenvConfig } from 'dotenv'
+import request from 'supertest'
+import app from '../../src/main/config/app'
+import { randomUUID } from 'crypto'
 
-jest.mock('node-fetch')
+// globalThis.fetch = fetch
 
 dotenvConfig()
 
-const HOSTNAME = `${process.env.HOST}:${process.env.PORT}`
+// const HOSTNAME = `${process.env.HOST}:${process.env.PORT}`
 
-console.log(HOSTNAME)
+const user = {
+  name: 'Jose Hamilton',
+  email: randomUUID() + '@gmail.com',
+  password: '123456',
+  mobilePhone: '75981849068',
+  cpfCnpj: '07494423010',
+  notificationDisabled: false
+}
 
-describe('External Postgres Repository', () => {
-  test('should be true case the email exists', async () => {
-    const response = await fetch(HOSTNAME, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
+// "jest": "^27.5.1"
 
-    console.log(response)
+describe('External Server', () => {
+  it('test api /api/user/test', async () => {
+    const response = await request(app).get('/api/user/test')
 
-    // await useCases.registerUserOnDatabase({ name: 'Hamilton', email, password: '123456' })
+    expect(response.statusCode).toEqual(200)
+    expect(typeof response.body).toEqual('object')
+  })
 
-    // const newInvalidUser = await user.deleteUser(id)
+  it('test /api/user/register - post', async () => {
+    // user.email = randomUUID() + '@gmail.com'
 
-    expect(true).toBe(true)
+    const response = await request(app)
+      .post('/api/user/register')
+      .send(user)
+
+    user.password = ''
+
+    // console.log(response.statusCode)
+    // console.log(response.body)
+
+    expect(response.body).toEqual(user)
+    expect(response.statusCode).toEqual(201)
+  })
+
+  it('test /api/user/auth - post', async () => {
+    user.password = '123456'
+    const response = await request(app)
+      .post('/api/user/auth')
+      .send(user)
+
+    expect(typeof response.body.token).toEqual('string')
+    expect(response.body.token).toBeDefined()
+    expect(response.body.token).toBeTruthy()
+
+    delete response.body.token
+
+    const authUser = {
+      email: user.email,
+      password: user.password
+    }
+
+    expect(response.statusCode).toEqual(200)
+    expect(response.body).toEqual(authUser)
   })
 })

@@ -19,19 +19,18 @@ export const routeAdapterToRegister = (controller:
     if (httpResponse.statusCode === 201) {
       httpResponse.body.password = '';
 
-      (async () => {
-        // eslint-disable-next-line no-undef
-        const data = await createClient(httpResponse)
-        console.log(data.status)
+      // (async function fastExec () {
+      //   const data = await createClient(httpResponse)
 
-        if (data.status === 200) {
-          const json = await data.json()
+      //   if (data.status === 200) {
+      //     const json = await data.json()
 
-          sendAuthorization(`${json.id} ${httpResponse.body.email}`)
-        }
-      })()
+      //     sendAuthorization(`${json.id} ${httpResponse.body.email}`)
+      //   }
+      // })()
 
       res.status(httpResponse.statusCode).json(httpResponse.body)
+      return
     }
 
     res.status(httpResponse.statusCode).json(httpResponse.body)
