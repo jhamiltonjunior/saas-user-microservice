@@ -13,6 +13,7 @@ import { UserId } from './validators/userId'
 import { InvalidUserIdError } from './errors/invalidUserId'
 import { DeleteUserResponse } from './responses/deleteUserResponse'
 import { InvalidUserError } from './errors/invalidUser'
+import { ShowUniqueUserResponse } from './responses/showUniqueUserResponse'
 
 export class UserUseCases implements UserInterface {
   private readonly userRepository: IUserRepository
@@ -92,10 +93,22 @@ export class UserUseCases implements UserInterface {
    * This method show a unique user
    * but not exist validation for verify uuid of params of request
    */
-  async showUniqueUser (id: string): Promise<IUserData> {
-    const user = await this.userRepository?.findUserById(id)
+  async showUniqueUser (id: string): Promise<ShowUniqueUserResponse> {
+    const idOrError = UserId.create(id)
 
-    return user
+    if (idOrError.isLeft()) {
+      return left(new InvalidUserIdError(id))
+    }
+
+    const idValue = idOrError.value
+
+    const user = await this.userRepository.findUserById(idValue.value)
+
+    if (user === undefined) {
+      return left(new Error('User ID not exists!'))
+    }
+
+    return right(user)
   }
 
   async deleteUser (id: string): Promise<DeleteUserResponse> {

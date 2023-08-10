@@ -72,4 +72,36 @@ describe('External Server', () => {
     expect(response.statusCode).toEqual(200)
     expect(response.body).toEqual(authUser)
   })
+
+  it('test /api/user/:id - get user', async () => {
+    const response = await request(app)
+      .get('/api/user/0e03f6f0-8794-4426-ace4-6d8fbb2abf88')
+
+    const body = response.body.body
+
+    if (response.statusCode === 400) {
+      expect(body).toEqual('User ID not exists!')
+
+      return
+    }
+
+    expect(response.statusCode).toEqual(200)
+    expect(typeof body).toEqual('object')
+    expect(typeof body.name).toEqual('string')
+    expect(typeof body.email).toEqual('string')
+  })
+
+  it('test /api/user/:id - delete', async () => {
+    const response = await request(app)
+      .delete('/api/user/863a3a92-4e97-4a5e-aac7-2eb30bdb45e0')
+
+    if (response.statusCode === 400) {
+      expect(response.body).toEqual('User ID not exists!')
+
+      return
+    }
+
+    expect(response.statusCode).toEqual(200)
+    expect(response.body).toEqual({ value: 'User Deleted' })
+  })
 })

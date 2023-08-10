@@ -1,8 +1,9 @@
 import { UserUseCases } from '@src/app/useCases/users/userUseCases'
-import { IUserData } from '@src/domain/entities/users/interfaces/userData'
+// import { IUserData } from '@src/domain/entities/users/interfaces/userData'
 import { MissingParamError } from '../errors/missingParamError'
 import { badRequest, ok, serverError } from '../helpers/httpHelper'
 import { IHttpRequest, IHttpResponse } from '../ports/http'
+import { ShowUniqueUserResponse } from '../../../../app/useCases/users/responses/showUniqueUserResponse'
 
 export class ShowUserController {
   private readonly registerUser: UserUseCases
@@ -26,11 +27,17 @@ export class ShowUserController {
         return badRequest(new MissingParamError(field))
       }
 
-      const showUserResponse: IUserData =
+      const showUserResponse: ShowUniqueUserResponse =
         await this.registerUser.showUniqueUser(id)
 
-      if (showUserResponse.name) userData.name = showUserResponse.name
-      userData.email = showUserResponse.email
+      if (showUserResponse.isLeft()) {
+        return badRequest(showUserResponse.value)
+      }
+
+      if (showUserResponse.isRight()) {
+        if (showUserResponse.value.name) userData.name = showUserResponse.value.name
+        if (showUserResponse.value.email) userData.email = showUserResponse.value.email
+      }
     } catch (error) {
       process.stdout.write(String(error))
       serverError('internal')

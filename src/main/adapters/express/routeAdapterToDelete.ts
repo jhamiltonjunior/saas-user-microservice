@@ -37,6 +37,6 @@ export const routeAdapterToDelete = (controller:
     // }
 
     res.status(httpResponse.statusCode)
-      .json({ message: 'foi bom enquanto durou!' })
+      .json(httpResponse.body)
   }
 }
