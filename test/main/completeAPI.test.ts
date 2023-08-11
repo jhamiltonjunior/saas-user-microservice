@@ -20,6 +20,7 @@ const user = {
   notificationDisabled: false
 }
 
+let token:string
 // "jest": "^27.5.1"
 
 describe('External Server', () => {
@@ -62,6 +63,7 @@ describe('External Server', () => {
     expect(response.body.token).toBeDefined()
     expect(response.body.token).toBeTruthy()
 
+    token = response.body.token
     delete response.body.token
 
     const authUser = {
@@ -73,14 +75,18 @@ describe('External Server', () => {
     expect(response.body).toEqual(authUser)
   })
 
-  it('test /api/user/:id - get user', async () => {
+  it('test /api/user/find/:id - get user', async () => {
     const response = await request(app)
-      .get('/api/user/0e03f6f0-8794-4426-ace4-6d8fbb2abf88')
+      .get('/api/user/find/0e03f6f0-8794-4426-ace4-6d8fbb2abf88')
+      .set('Authorization', 'Bearer ' + token)
 
     const body = response.body.body
 
-    if (response.statusCode === 400) {
-      expect(body).toEqual('User ID not exists!')
+    // console.log(response)
+    // console.log(response.body)
+
+    if (response.statusCode === 401) {
+      expect(response.body.message).toEqual('no token provided')
 
       return
     }
@@ -91,12 +97,19 @@ describe('External Server', () => {
     expect(typeof body.email).toEqual('string')
   })
 
-  it('test /api/user/:id - delete', async () => {
+  it('test /api/user/delete/:id - delete', async () => {
     const response = await request(app)
-      .delete('/api/user/863a3a92-4e97-4a5e-aac7-2eb30bdb45e0')
+      .delete('/api/user/delete/cf2ce777-f1aa-44e7-91b2-cf65c28e42a8')
+      .set('Authorization', 'Bearer ' + token)
 
     if (response.statusCode === 400) {
       expect(response.body).toEqual('User ID not exists!')
+
+      return
+    }
+
+    if (response.statusCode === 401) {
+      expect(response.body.message).toEqual('no token provided')
 
       return
     }

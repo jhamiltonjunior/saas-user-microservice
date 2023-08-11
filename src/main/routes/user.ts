@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express'
+import { Router, Request, Response } from 'express'
 import { routeAdapterToAuthenticate } from '../adapters/express/routeAdapterToAuthenticate'
 import { routeAdapterToRegister } from '../adapters/express/routeAdapterToRegister'
 import { routeAdapterToShowUser } from '../adapters/express/routeAdapterToShow'
@@ -10,17 +10,16 @@ import { makeShowUniqueUserController } from '../factories/showUnique'
 import { auth } from '../middleware/authOnly'
 
 export default (router: Router): void => {
-  router.post('/user/auth', routeAdapterToAuthenticate(makeAuthUserController()))
-
   router.post('/user/register', routeAdapterToRegister(makeRegisterUserController()))
-
-  router.delete('/user/:id', routeAdapterToDelete(makeDeleteUserController()))
-
-  router.get('/user/:id', routeAdapterToShowUser(makeShowUniqueUserController()))
+  router.post('/user/auth', routeAdapterToAuthenticate(makeAuthUserController()))
 
   router.get('/user/test', (req: Request, res: Response) => {
     res.json({
       message: 'Funcionando!'
     })
   })
+
+  router.get('/user/find/:id', auth, routeAdapterToShowUser(makeShowUniqueUserController()))
+
+  router.delete('/user/delete/:id', auth, routeAdapterToDelete(makeDeleteUserController()))
 }

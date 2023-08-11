@@ -21,7 +21,8 @@ export const validateUser = (token: string): string => {
     '18AC3E7343F016890C510E93F935261169D9E3F565436429830FAF0934F4F8E4',
     (error, decoded) => {
       if (error) {
-        console.log('external/jwt', error)
+        // console.log('external/jwt', error)
+        throw new Error(`deu erro no jwt ${error}`)
       }
 
       if (decoded === undefined) {
