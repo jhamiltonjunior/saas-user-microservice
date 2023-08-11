@@ -89,6 +89,38 @@ export class UserUseCases implements UserInterface {
     return right(authData)
   }
 
+  async updateUserOnDatabase (userData: IUserData): Promise<UserResponse> {
+    const userOrError: Either<
+    InvalidNameError | InvalidEmailError | InvalidPasswordError,
+    User> = User.create(userData)
+
+    if (userOrError.isLeft()) {
+      return left(userOrError.value)
+    }
+
+    const user: User = userOrError.value
+    const exists = this.userRepository.exists(userData.email)
+
+    if (!(await exists).valueOf()) {
+      if (user.name !== undefined) {
+        const userId = await this.userRepository.add({
+          name: user.name.value,
+          email: user.email.value,
+          password: user.password.value
+        })
+
+        userData.token = await this.userRepository.authenticateUser(userId)
+      }
+      return right('User created')
+    }
+
+    if ((await exists).valueOf()) {
+      return left(new InvalidEmailError('email exist'))
+    }
+
+    return right(userData)
+  }
+
   /**
    * This method show a unique user
    * but not exist validation for verify uuid of params of request
