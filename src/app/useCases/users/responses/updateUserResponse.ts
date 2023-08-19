@@ -4,4 +4,4 @@ import { InvalidNameError } from '../../../../domain/entities/users/errors/inval
 import { IUserData } from '../../../../domain/entities/users/interfaces/userData'
 import { Either } from '../../../../shared/either'
 
-export type UserResponse = Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, string | IUserData>
+export type UpdateUserResponse = Either<InvalidNameError | InvalidEmailError | InvalidPasswordError, string | IUserData>

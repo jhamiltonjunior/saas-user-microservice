@@ -20,7 +20,7 @@ export interface IAuthUserRepository {
 
 export interface IUserRepository {
   add: (user: IUserData) => Promise<string>
-  update: (user: IUserData, tokenId: string) => Promise<void>
+  update: (user: IUserData, tokenId: string) => Promise<string>
   generateDefaultPermission: (userId: string, permissionId: string) => Promise<void>
   findUserById: (id: string) => Promise<IUserData>
   getPermission: (id: string) => Promise<string>

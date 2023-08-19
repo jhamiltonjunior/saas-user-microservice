@@ -1,5 +1,4 @@
-import { UserUseCases } from '@src/app/useCases/users/userUseCases'
-// import { IUserData } from '@src/domain/entities/users/interfaces/userData'
+import { UserUseCases } from '../../../../app/useCases/users/userUseCases'
 import { MissingParamError } from '../errors/missingParamError'
 import { badRequest, ok, serverError } from '../helpers/httpHelper'
 import { IHttpRequest, IHttpResponse } from '../ports/http'

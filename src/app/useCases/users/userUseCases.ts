@@ -17,9 +17,14 @@ import { ShowUniqueUserResponse } from './responses/showUniqueUserResponse'
 
 export class UserUseCases implements UserInterface {
   private readonly userRepository: IUserRepository
+  public validateUser?: (token:string) => string
 
-  constructor (registerRepo: IUserRepository) {
+  constructor (
+    registerRepo: IUserRepository,
+    validateUser?: (token:string) => string
+  ) {
     this.userRepository = registerRepo
+    this.validateUser = validateUser || undefined
   }
 
   async registerUserOnDatabase (userData: IUserData): Promise<UserResponse> {
@@ -89,7 +94,7 @@ export class UserUseCases implements UserInterface {
     return right(authData)
   }
 
-  async updateUserOnDatabase (userData: IUserData): Promise<UserResponse> {
+  async updateUserOnDatabase (userData: IUserData, id: string, token: string): Promise<UserResponse> {
     const userOrError: Either<
     InvalidNameError | InvalidEmailError | InvalidPasswordError,
     User> = User.create(userData)
@@ -98,27 +103,29 @@ export class UserUseCases implements UserInterface {
       return left(userOrError.value)
     }
 
+    let idRequest
+    if (this.validateUser) idRequest = this.validateUser(token)
+    const userDB = this.userRepository.findUserById(id)
+
+    if (idRequest !== (await userDB).user_id) {
+      return left(new InvalidUserIdError('User not allowed'))
+    }
+
     const user: User = userOrError.value
-    const exists = this.userRepository.exists(userData.email)
 
-    if (!(await exists).valueOf()) {
-      if (user.name !== undefined) {
-        const userId = await this.userRepository.add({
-          name: user.name.value,
-          email: user.email.value,
-          password: user.password.value
-        })
+    if (Object.keys(await userDB).length === 0) {
+      return left(new InvalidEmailError('email not exist'))
+    } else if (id === undefined) {
+      return left(new InvalidUserIdError(id))
+    } else {
+      await this.userRepository.update({
+        name: (<any>user.name).value || (await <any>userDB).user_name,
+        email: user.email.value || (await <any>userDB).user_email,
+        password: user.password.value || (await <any>userDB).user_password
+      }, id)
 
-        userData.token = await this.userRepository.authenticateUser(userId)
-      }
-      return right('User created')
+      return right('User updated')
     }
-
-    if ((await exists).valueOf()) {
-      return left(new InvalidEmailError('email exist'))
-    }
-
-    return right(userData)
   }
 
   /**

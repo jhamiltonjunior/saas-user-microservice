@@ -8,4 +8,5 @@ export interface IHttpResponse {
 export interface IHttpRequest {
   body?: any
   params?: string | any
+  headers?: any
 }

@@ -140,10 +140,10 @@ export class PostgresUserRepository implements IUserRepository {
    * This update can update the datas of user
    * But only user who it is authenticate
    */
-  async update (user: IUserData, tokenId: string): Promise<void> {
+  async update (user: IUserData, id: string): Promise<string> {
     const hash = await this.hash(user.password)
 
-    await this.postgresHelper.writer(
+    const result = await this.postgresHelper.writer(
       `
       UPDATE users
       SET
@@ -152,9 +152,13 @@ export class PostgresUserRepository implements IUserRepository {
         password = $3
       
       WHERE
-        user_id = $4`,
-      [user.name, user.email, hash, tokenId]
+        user_id = $4
+      
+      RETURNING *`,
+      [user.name, user.email, hash, id]
     )
+
+    return result.rows[0].user_id
   }
 
   async deleteById (id: string): Promise<void> {
