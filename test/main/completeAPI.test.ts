@@ -77,7 +77,7 @@ describe('External Server', () => {
 
   it('test /api/user/find/:id - get user', async () => {
     const response = await request(app)
-      .get('/api/user/find/0e03f6f0-8794-4426-ace4-6d8fbb2abf88')
+      .get('/api/user/find/112b339f-5980-4097-8d72-63fe3612766f')
       .set('Authorization', 'Bearer ' + token)
 
     const body = response.body.body

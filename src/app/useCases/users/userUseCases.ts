@@ -103,6 +103,14 @@ export class UserUseCases implements UserInterface {
       return left(userOrError.value)
     }
 
+    const userFromEmail = this.userRepository.findUserByEmail(userData.email)
+
+    if (await userFromEmail) {
+      if ((await userFromEmail).user_id !== id) {
+        return left(new InvalidEmailError('email exist'))
+      }
+    }
+
     let idRequest
     if (this.validateUser) idRequest = this.validateUser(token)
     const userDB = this.userRepository.findUserById(id)
