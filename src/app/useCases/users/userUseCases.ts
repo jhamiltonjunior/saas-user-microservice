@@ -70,10 +70,19 @@ export class UserUseCases implements UserInterface {
     }
 
     const result = await this.userRepository.findUserByEmail(authData.email)
+
+    if (!result) {
+      return left(new InvalidUserError('this email not exist', ''))
+    }
+
     const checkedPassword = await this.userRepository.comparePassword(
       // password of request body and password of database result
       authData.password, result.password
     )
+
+    if (!checkedPassword) {
+      return left(new InvalidUserError('', 'passwd not mathed'))
+    }
 
     if (result.email && checkedPassword) {
       // I am attributing the jwt to property token of IUserAuthData
@@ -81,14 +90,6 @@ export class UserUseCases implements UserInterface {
     } else if (authData.token === undefined) {
       authData.email = 'InvalidEmail'
       authData.password = 'InvalidPassword'
-    }
-
-    if (!result.email) {
-      return left(new InvalidUserError('InvalidEmail', ''))
-    }
-
-    if (!checkedPassword) {
-      return left(new InvalidUserError('', 'InvalidPassword'))
     }
 
     return right(authData)

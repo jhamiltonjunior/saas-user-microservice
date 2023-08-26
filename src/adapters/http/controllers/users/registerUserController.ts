@@ -24,7 +24,7 @@ export class RegisterUserController {
     }
 
     try {
-      if (!httpRequest.body.name) {
+      if (!httpRequest.body.name || !httpRequest.body.email || !httpRequest.body.password) {
         const field = httpRequest.body.name = 'name'
 
         return badRequest(new MissingParamError(field))
